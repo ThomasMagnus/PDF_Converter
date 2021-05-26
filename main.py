@@ -41,7 +41,7 @@ class PDFConverter:
         my_docx = docx.Document()
 
         with open('text.txt', 'w') as file:
-            file.write(text)
+            file.write(text.replace('', ''))
 
         with open('text.txt', 'r') as file:
             txt = file.read()
