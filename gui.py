@@ -1,10 +1,10 @@
 import os
-
-from PyQt5 import QtWidgets, uic, QtGui
-from PyQt5.QtWidgets import (QMainWindow, QFileDialog, QApplication, QAction, QPushButton)
-from PyQt5.QtGui import QIcon
-from qdesign import Ui_MainWindow
 import sys
+
+from PyQt5 import QtWidgets, QtGui
+from PyQt5.QtWidgets import (QMainWindow, QFileDialog, QApplication, QAction, QPushButton)
+from main import PDFConverter
+from qdesign import Ui_MainWindow
 
 
 class MyWindow(QtWidgets.QMainWindow):
@@ -13,32 +13,28 @@ class MyWindow(QtWidgets.QMainWindow):
         self.ui = Ui_MainWindow()
         self.ui.setupUi(self)
 
-        # open_file = QAction('Найти файл', self)
-        # open_file.setShortcut('Ctr + O')
-        # open_file.setStatusTip('Найти файл')
-        #
-        # open_file.triggered.connect(self.show_dialog)
-        #
-        # menu_bar = self.menuBar()
-        # file_menu = menu_bar.addMenu('&Файл')
-        # file_menu.addAction(open_file)
-
         self.ui.pushButton.clicked.connect(self.click)
+        self.ui.pushButton_3.clicked.connect(self.converter)
         self.ui.label_2.setPixmap(QtGui.QPixmap(''))
+        self.ui.label_3.setText('')
+        self.file = ''
 
         self.setWindowTitle('PDF Конвертер')
 
     def show_dialog(self):
         fname = QFileDialog.getOpenFileName(self, 'Open File')[0]
         name = os.path.basename(fname).split('.')[1]
-        if name == 'txt':
-            return fname
+        if name == 'pdf':
+            self.file = fname
 
     def click(self):
-        with open(self.show_dialog(), 'r') as file:
-            res = file.read()
-            print(res)
-            self.ui.label_2.setPixmap(QtGui.QPixmap('pdf_icon.png'))
+        self.show_dialog()
+        self.ui.label_2.setPixmap(QtGui.QPixmap('pdf_icon.png'))
+        self.ui.label_3.setText(os.path.basename(self.file).split('.')[0])
+
+    def converter(self):
+        pdf_converter = PDFConverter(self.file)
+        pdf_converter.convert_to_word()
 
 
 app = QtWidgets.QApplication([])

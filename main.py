@@ -3,20 +3,19 @@ from pdfminer.converter import TextConverter
 from pdfminer.layout import LAParams
 from pdfminer.pdfpage import PDFPage
 from io import StringIO
-from typing import final
 import docx
 
 
 class PDFConverter:
-    PATH: final(str) = 'my_doc.pdf'
 
-    def __init__(self):
+    def __init__(self, path):
+        self.path = path
         self.rsrcmgr = PDFResourceManager()
         self.retstr = StringIO()
         self.codec = 'utf-8'
         self.laparams = LAParams()
         self.device = TextConverter(self.rsrcmgr, self.retstr, self.codec, laparams=self.laparams)
-        self.fp = open(self.PATH, 'rb')
+        self.fp = open(self.path, 'rb')
         self.interpreter = PDFPageInterpreter(rsrcmgr=self.rsrcmgr, device=self.device)
         self.password = ''
         self.maxpages = 0
@@ -34,20 +33,10 @@ class PDFConverter:
         self.fp.close()
         self.device.close()
         self.retstr.close()
-        return text
+        return text.replace('', '')
 
     def convert_to_word(self):
         text = self.converter_to_text()
         my_docx = docx.Document()
-
-        with open('text.txt', 'w') as file:
-            file.write(text.replace('', ''))
-
-        with open('text.txt', 'r') as file:
-            txt = file.read()
-            my_docx.add_paragraph(txt)
-            my_docx.save('text.docx')
-
-
-reader = PDFConverter()
-reader.convert_to_word()
+        my_docx.add_paragraph(text)
+        my_docx.save('text')
