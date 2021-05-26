@@ -14,7 +14,11 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>MainWindow</string>
+   <string>Конвертер</string>
+  </property>
+  <property name="windowIcon">
+   <iconset>
+    <normaloff>images/favicon.png</normaloff>images/favicon.png</iconset>
   </property>
   <property name="animated">
    <bool>true</bool>

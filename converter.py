@@ -8,8 +8,9 @@ import docx
 
 class PDFConverter:
 
-    def __init__(self, path):
+    def __init__(self, path, name):
         self.path = path
+        self.name = name
         self.rsrcmgr = PDFResourceManager()
         self.retstr = StringIO()
         self.codec = 'utf-8'
@@ -39,4 +40,5 @@ class PDFConverter:
         text = self.converter_to_text()
         my_docx = docx.Document()
         my_docx.add_paragraph(text)
-        my_docx.save('text')
+        my_docx.save(f'./home/{self.name}.docx')
+

@@ -16,6 +16,9 @@ class Ui_MainWindow(object):
         MainWindow.setObjectName("MainWindow")
         MainWindow.setEnabled(True)
         MainWindow.resize(357, 546)
+        icon = QtGui.QIcon()
+        icon.addPixmap(QtGui.QPixmap("images/favicon.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        MainWindow.setWindowIcon(icon)
         MainWindow.setAnimated(True)
         self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.centralwidget.setObjectName("centralwidget")
@@ -82,7 +85,7 @@ class Ui_MainWindow(object):
 
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
-        MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
+        MainWindow.setWindowTitle(_translate("MainWindow", "Конвертер"))
         self.pushButton.setText(_translate("MainWindow", "Загрузить"))
         self.label.setText(_translate("MainWindow", "Ваш файл:"))
         self.pushButton_2.setText(_translate("MainWindow", "Удалить"))
